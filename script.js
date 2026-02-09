@@ -105,6 +105,42 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     });
 });
 
+// Mobile Menu Toggle
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+const menuBackdrop = document.querySelector('.mobile-menu-backdrop');
+
+function toggleMobileMenu() {
+    const isActive = navLinks.classList.contains('active');
+    mobileMenuToggle.classList.toggle('active');
+    navLinks.classList.toggle('active');
+    if (menuBackdrop) {
+        menuBackdrop.classList.toggle('active');
+    }
+}
+
+function closeMobileMenu() {
+    mobileMenuToggle.classList.remove('active');
+    navLinks.classList.remove('active');
+    if (menuBackdrop) {
+        menuBackdrop.classList.remove('active');
+    }
+}
+
+if (mobileMenuToggle && navLinks) {
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+
+    // Close menu when clicking on backdrop
+    if (menuBackdrop) {
+        menuBackdrop.addEventListener('click', closeMobileMenu);
+    }
+
+    // Close menu when clicking on a link
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+}
+
 // Initialize carousel on page load
 document.addEventListener('DOMContentLoaded', function () {
     showSlide(currentSlideIndex);
